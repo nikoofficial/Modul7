@@ -8,11 +8,9 @@ using Newtonsoft.Json;
 
 namespace Modul 7_1302204050
 {
-    internal class Program
-    {
-        static void Main(string[] args)
+    static void Main(string[] args)
         {
-            BankConfig bankConfig = new BankConfig();
+            BankTransferConfig bankConfig = new BankTransferConfig();
 
             dynamic conf = bankConfig.ReadJson();
 
@@ -22,35 +20,38 @@ namespace Modul 7_1302204050
             }
             else if (conf.lang == "id")
             {
-                Console.WriteLine("Enter amount to deposit in the account:");
+                Console.WriteLine("Masukkan jumlah uang yang akan di-transfer:");
             }
-            string Transaction = Console.ReadLine();
+        
+            string uangDiTranferStr = Console.ReadLine();
 
-            int Transaction = int.Parse(Transaction);
+            int uangDiTransfer = int.Parse(uangDiTranferStr);
 
-            int Transaction;
+            int biayaTransfer;
 
-            if (Transaction <= (int)conf.Transaction.threshold)
+            if (uangDiTransfer <= (int)conf.transfer.threshold)
             {
-                Transaction = conf.Transaction.low_fee;
+                biayaTransfer = conf.transfer.low_fee;
             }
             else
             {
-                Transaction = conf.Transaction.high_fee;
+                biayaTransfer = conf.transfer.high_fee;
             }
 
             if (conf.lang == "en")
             {
-                Console.WriteLine("Transfer fee = " + Transaction);
-                Console.WriteLine("Total amount = " + (Transaction) + "\n");
+                Console.WriteLine("Transfer fee = " + biayaTransfer);
+                Console.WriteLine("Total amount = " + (biayaTransfer + uangDiTransfer) + "\n");
                 Console.WriteLine("Select transfer method");
             }
             else if (conf.lang == "id")
             {
-                Console.WriteLine("Biaya Transaction = " + Transaction);
-                Console.WriteLine("Total Transaction = " + (Transactionr) + "\n");
-                Console.WriteLine("Pilih metode Transaction");
+                Console.WriteLine("Biaya transfer = " + biayaTransfer);
+                Console.WriteLine("Total biaya = " + (biayaTransfer + uangDiTransfer) + "\n");
+                Console.WriteLine("Pilih metode transfer");
             }
+        
+        
             int index = 0;
 
             foreach (var mthd in conf.methods)
